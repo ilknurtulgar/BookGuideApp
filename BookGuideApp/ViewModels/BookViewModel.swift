@@ -11,7 +11,7 @@ class BookViewModel: ObservableObject {
     @Published var books: [Book] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
-    @Published var categories = ["Roman","Bilim","Fantastik","Kişisel Gelişim","Şiir","Çocuk"]
+    @Published var categories = ["Roman","Fantastik","Kişisel Gelişim","Şiir","Bilim","Çocuk"]
     @Published var selectedCategory: String = "Roman"
     
     func fetchBooks(query: String) async {

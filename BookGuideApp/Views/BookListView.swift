@@ -24,6 +24,7 @@ struct BookListView: View {
                 if viewModel.isLoading {
                     Spacer()
                     ProgressView("Loading...")
+                    Spacer()
                 } else if let error = viewModel.errorMessage {
                     Spacer()
                     Text(error)
@@ -32,32 +33,10 @@ struct BookListView: View {
                 } else {
                     List(viewModel.books) { book in
                         NavigationLink(destination: BookDetailView(book: book)) {
-                            HStack{
-                                if let urlString = book.volumeInfo.imageLinks?.thumbnail,
-                                   let secureUrl = URL(string: urlString.replacingOccurrences(of: "http://", with: "https://")){
-                                    AsyncImage(url: secureUrl){image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    }placeholder: {
-                                        Color.gray
-                                    }
-                                    .frame(width: 50,height: 75)
-                                    .cornerRadius(5)
-                                    
-                                }
-                            }
-                            VStack(alignment: .leading){
-                                Text(book.volumeInfo.title ?? "None")
-                                    .font(.headline)
-                                Text(book.volumeInfo.authors?.joined(separator: ", ") ?? "None")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            }
+                          BookRowView(book: book)
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
-                 //   .listStyle(PlainListStyle())
+                    .listStyle(PlainListStyle())
                 }
             }
             .navigationTitle("Book Guide")

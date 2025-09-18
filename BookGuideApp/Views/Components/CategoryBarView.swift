@@ -14,7 +14,7 @@ struct CategoryBarView: View {
     
     var body: some View {
         ScrollView(.horizontal){
-            HStack(spacing: 4){
+            HStack(spacing: 10){
                 ForEach(categories,id: \.self){category in
                 Text(category)
                         .padding(.vertical,8)
