@@ -22,13 +22,13 @@ struct BookRowView: View {
                     Color.gray
                 }
                 .frame(width: 50,height: 75)
-                .cornerRadius(5)
+              
             }
             else {
                 Rectangle()
                     .fill(Color.gray.opacity(0.3))
                     .frame(width: 50,height: 75)
-                    .cornerRadius(5)
+                    
             }
             
             VStack(alignment: .leading,spacing: 4){
@@ -44,5 +44,5 @@ struct BookRowView: View {
 }
 
 #Preview {
-    BookRowView(book: Book(id: "123", volumeInfo: VolumeInfo(title: "Martin eden", authors: ["John", "Green"], publisher: "asdf", imageLinks: ImageLinks(thumbnail: "www.google.com"))))
+    BookRowView(book: Book(id: "123", volumeInfo: VolumeInfo(title: "Martin eden", authors: ["John", "Green"], publisher: "asdf", imageLinks: ImageLinks(thumbnail: "www.google.com"), description: "lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, ")))
 }
