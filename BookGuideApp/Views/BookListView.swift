@@ -11,13 +11,14 @@ struct BookListView: View {
     @StateObject var viewModel = BookViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                CategoryBarView(selectedCategory: $viewModel.selectedCategory, categories: viewModel.categories){
+               SearchBarView(text: $viewModel.searchText, placeholder: "Search books")
+                    .padding(.top, 8)
+                CategoryBarView(selectedCategory: $viewModel.selectedCategory, searchText: $viewModel.searchText, categories: viewModel.categories){
                     category in
-                    print("click: \(category)")
                     Task{
-                        await viewModel.fetchBooks(query: category.lowercased())
+                        await viewModel.fetchBooks(query: category.query)
                     }
                 }
 
@@ -30,30 +31,49 @@ struct BookListView: View {
                     Text(error)
                         .foregroundColor(.red)
                         .multilineTextAlignment(.center)
+                }else if viewModel.isGridView {
+                    ScrollView{
+                        LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())], spacing: 5){
+                            ForEach(viewModel.books){book in
+                                NavigationLink(destination: BookDetailView(book: book)){
+                                    BookGridItemView(book: book)
+                                }
+                            }
+                        }
+                    }
                 } else {
+                
                     List(viewModel.books) { book in
                         NavigationLink(destination: BookDetailView(book: book)) {
                           BookRowView(book: book)
                         }
                     }
+                    
                     .listStyle(PlainListStyle())
                 }
             }
+
             .navigationTitle("Book Guide")
-            .searchable(text: $viewModel.searchText,prompt: "Search books")
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: {viewModel.isGridView.toggle()}){
+                        Image(systemName: viewModel.isGridView ? "square.grid.2x2" : "list.bullet"  )
+                    }
+                }
+            }
             .onChange(of: viewModel.searchText){newValue in
                 Task{
                     if newValue.isEmpty{
-                        print(viewModel.selectedCategory)
-                        await viewModel.fetchBooks(query: viewModel.selectedCategory.lowercased())
+                        await viewModel.fetchBooks(query: viewModel.selectedCategory.query)
                     }else {
                         await viewModel.fetchBooks(query: newValue)
                     }
                 }
             }
+
         }
         .task{
-            await viewModel.fetchBooks(query: viewModel.selectedCategory)
+            await viewModel.fetchBooks(query: viewModel.selectedCategory.query)
         }
     }
 }

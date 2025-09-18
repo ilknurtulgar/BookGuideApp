@@ -7,13 +7,29 @@
 
 import Foundation
 
+
+struct Category {
+    let title: String
+    let query: String
+    
+    static let all: [Category] = [
+        Category(title: "Recommended", query: "novel"),
+        Category(title: "Fantastic", query: "fantasy"),
+        Category(title: "Self-Help", query: "self-help"),
+        Category(title: "Poem", query: "poetry"),
+        Category(title: "Science", query: "science"),
+        Category(title: "Child", query: "children")]
+}
+
 class BookViewModel: ObservableObject {
     @Published var books: [Book] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
-    @Published var categories = ["Roman","Fantastik","Kişisel Gelişim","Şiir","Bilim","Çocuk"]
-    @Published var selectedCategory: String = "Roman"
-    @Published var searchText = ""
+    @Published var categories = Category.all
+    @Published var selectedCategory = Category.all[0]
+    @Published var searchText: String = ""
+    @Published var isGridView = false
+
     
     func fetchBooks(query: String) async {
         isLoading = true
