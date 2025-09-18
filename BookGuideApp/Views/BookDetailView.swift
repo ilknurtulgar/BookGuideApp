@@ -11,16 +11,24 @@ struct BookDetailView: View {
     var book: Book
     var body: some View {
         ScrollView{
-            VStack(alignment: .leading,spacing: 16){
+            VStack(alignment: .center,spacing: 16){
                 if let urlString = book.volumeInfo.imageLinks?.thumbnail,
                    let secureUrl = URL(string: urlString.replacingOccurrences(of: "http://", with: "https://")){
-                    AsyncImage(url: secureUrl){image in
-                    image
-                            .resizable()
-                            .scaledToFill()
-                      
-                    }placeholder: {
-                        Color.gray.frame(height: 100)
+                    HStack {
+                        Spacer()
+                        AsyncImage(url: secureUrl){image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(maxWidth: 200)
+                                .cornerRadius(8)
+                                .shadow(radius: 4)
+                            
+                            
+                        }placeholder: {
+                            Color.gray.frame(height: 100)
+                        }
+                        Spacer()
                     }
                 }else{
                     Rectangle()
@@ -28,19 +36,20 @@ struct BookDetailView: View {
                         .frame(width: 50,height: 75)
                 }
                 
-                    Text(book.volumeInfo.title ?? "No Title")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.bottom,4)
-                
+                HStack {
+                    Image(systemName: "person.fill")
                     Text(book.volumeInfo.authors?.joined(separator: ", ") ?? "Unknown Author")
                         .font(.headline)
                         .foregroundColor(.primary)
+                }
                 
                 if let published = book.volumeInfo.publisher{
-                    Text(published)
-                        .font(.callout)
-                        .foregroundColor(.primary)
+                    HStack {
+                        Image(systemName: "globe")
+                        Text(published)
+                            .font(.callout)
+                            .foregroundColor(.primary)
+                    }
                         
                 }
                 Divider()

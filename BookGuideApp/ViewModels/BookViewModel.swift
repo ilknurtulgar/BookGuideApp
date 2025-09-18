@@ -13,6 +13,7 @@ class BookViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var categories = ["Roman","Fantastik","Kişisel Gelişim","Şiir","Bilim","Çocuk"]
     @Published var selectedCategory: String = "Roman"
+    @Published var searchText = ""
     
     func fetchBooks(query: String) async {
         isLoading = true

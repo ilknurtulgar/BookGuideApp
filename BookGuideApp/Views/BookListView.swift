@@ -40,9 +40,20 @@ struct BookListView: View {
                 }
             }
             .navigationTitle("Book Guide")
+            .searchable(text: $viewModel.searchText,prompt: "Search books")
+            .onChange(of: viewModel.searchText){newValue in
+                Task{
+                    if newValue.isEmpty{
+                        print(viewModel.selectedCategory)
+                        await viewModel.fetchBooks(query: viewModel.selectedCategory.lowercased())
+                    }else {
+                        await viewModel.fetchBooks(query: newValue)
+                    }
+                }
+            }
         }
         .task{
-            await viewModel.fetchBooks(query: "roman")
+            await viewModel.fetchBooks(query: viewModel.selectedCategory)
         }
     }
 }
