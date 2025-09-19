@@ -14,6 +14,7 @@ Book Detail Screen – tap on a book to see its cover, author, publisher, and de
 Responsive UI – designed with SwiftUI for a clean and adaptive interface.
 
 ### 🛠️ Technologies
+
 SwiftUI
 SwiftUI State Management (@State, @StateObject, @Published) for reactive UI updates
 MVVM Pattern
@@ -21,6 +22,7 @@ Async/Await for network calls
 Google Books API
 
 ### ▶️ Usage
+
 1. Clone the repository or open the provided project in Xcode.
 2. Run the app on the simulator or a physical device.
 3. Browse books by category or use the search bar to find specific titles.
