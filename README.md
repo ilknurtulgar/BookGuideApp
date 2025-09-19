@@ -19,3 +19,10 @@ SwiftUI State Management (@State, @StateObject, @Published) for reactive UI upda
 MVVM Pattern
 Async/Await for network calls
 Google Books API
+
+### ▶️ Usage
+1. Clone the repository or open the provided project in Xcode.
+2. Run the app on the simulator or a physical device.
+3. Browse books by category or use the search bar to find specific titles.
+4. Switch between list and grid view using the toolbar button.
+5. Tap a book to view its details.
