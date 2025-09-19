@@ -17,9 +17,9 @@ Responsive UI – designed with SwiftUI for a clean and adaptive interface.
 
 SwiftUI
 SwiftUI State Management (@State, @StateObject, @Published) for reactive UI updates
-MVVM Pattern
 Async/Await for network calls
 Google Books API
+MVVM Pattern
 
 ### ▶️ Usage
 
